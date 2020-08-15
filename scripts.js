@@ -18,12 +18,14 @@ request.onload = function () {
   const forecastContainer = document.getElementById('forecast');
   
   var i;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < 6; i++) {
     var dailyTemp = daily[i].temp.day;
-    const day = document.createElement('div')
-    day.setAttribute('class', 'day')
-    day.textContent = dailyTemp;
-    forecastContainer.appendChild(day);
+    if (i > 0) {
+      const day = document.createElement('div')
+      day.setAttribute('class', 'day')
+      day.textContent = dailyTemp;
+      forecastContainer.appendChild(day);
+    }
   }
 }
 
