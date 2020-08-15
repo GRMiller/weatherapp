@@ -6,14 +6,25 @@ request.open('GET', 'https://api.openweathermap.org/data/2.5/onecall?lat=33.4417
 
 request.onload = function () {
   var data = JSON.parse(this.response);
-  console.log(data)
 
   // Create and append data for current temperature
   var temperature = data.current.temp;
-  const container = document.getElementById('current-temp');
-  container.textContent = temperature;
+  const tempContainer = document.getElementById('current-temp');
+  tempContainer.textContent = temperature; // no child containers needed
   
+  // Create and append data for 5 day forecast
+  var daily = data.daily
+
+  const forecastContainer = document.getElementById('forecast');
   
+  var i;
+  for (i = 0; i < 5; i++) {
+    var dailyTemp = daily[i].temp.day;
+    const day = document.createElement('div')
+    day.setAttribute('class', 'day')
+    day.textContent = dailyTemp;
+    forecastContainer.appendChild(day);
+  }
 }
 
 // Send request
