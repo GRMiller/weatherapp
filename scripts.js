@@ -22,92 +22,96 @@ function havePosition(position) {
   request.onload = function () {
     var data = JSON.parse(this.response);
   
-    // Get container and append data for current temperature
+    // Make sure response is good
+    if (request.status >= 200 && request.status < 400) {
 
-    if (document.getElementById('current-temp') != undefined) {
-      var temperature = data.current.temp;
-      const tempContainer = document.getElementById('current-temp');
-      tempContainer.textContent = 'The current temperature at your location is: ' + temperature + '°F'; // no child containers needed for current temp
-    }
-    /**
-     * Create and append data for 5 day forecast
-     *  */ 
+      // Get container and append data for current temperature
 
-    // Get forecast container
-    const forecastContainer = document.getElementById('forecast');
+      if (document.getElementById('current-temp') != undefined) {
+        var temperature = data.current.temp;
+        const tempContainer = document.getElementById('current-temp');
+        tempContainer.textContent = 'The current temperature at your location is: ' + temperature + '°F'; // no child containers needed for current temp
+      }
+      /**
+       * Create and append data for 5 day forecast
+       *  */ 
 
-    // Make daily data easier to access
-    var daily = data.daily
+      // Get forecast container
+      const forecastContainer = document.getElementById('forecast');
 
-    // Loop through response
-    for (var i = 0; i < 6; i++) {
+      // Make daily data easier to access
+      var daily = data.daily
 
-      // Save the data we need to variables
-      var dailyDay = daily[i].dt;
-      var dailyTemp = daily[i].temp.day;
-      var dailyFeels = daily[i].feels_like.day
-      var dailyMin = daily[i].temp.min;
-      var dailyMax = daily[i].temp.max;
-      var dailyMorning = daily[i].temp.morn;
-      var dailyEvening = daily[i].temp.eve;
-      var dailyNight = daily[i].temp.night;
-      var dailyIcon = daily[i].weather[0].icon;
-      var dailyDescription = daily[i].weather[0].description;
-      
-      // Only create containers and content for days after today e.g. > 0
-      if (i > 0) {
+      // Loop through response
+      for (var i = 0; i < 6; i++) {
 
-        // Create container for each day with that day's date
-        const day = document.createElement('div');
-        day.setAttribute('class', 'day');
-        forecastContainer.appendChild(day);
+        // Save the data we need to variables
+        var dailyDay = daily[i].dt;
+        var dailyTemp = daily[i].temp.day;
+        var dailyFeels = daily[i].feels_like.day
+        var dailyMin = daily[i].temp.min;
+        var dailyMax = daily[i].temp.max;
+        var dailyMorning = daily[i].temp.morn;
+        var dailyEvening = daily[i].temp.eve;
+        var dailyNight = daily[i].temp.night;
+        var dailyIcon = daily[i].weather[0].icon;
+        var dailyDescription = daily[i].weather[0].description;
         
-        // Add date
-        const dayDate = document.createElement('div');
-        dayDate.setAttribute('class', 'day-date');
-        dayDate.textContent = unixConverter(dailyDay);
-        day.appendChild(dayDate);
+        // Only create containers and content for days after today e.g. > 0
+        if (i > 0) {
 
-        // Add weather icon
-        const dayIcon = document.createElement('img');
-        dayIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + dailyIcon + '.png');
-        day.appendChild(dayIcon);
+          // Create container for each day with that day's date
+          const day = document.createElement('div');
+          day.setAttribute('class', 'day');
+          forecastContainer.appendChild(day);
+          
+          // Add date
+          const dayDate = document.createElement('div');
+          dayDate.setAttribute('class', 'day-date');
+          dayDate.textContent = unixConverter(dailyDay);
+          day.appendChild(dayDate);
 
-        // Add weather description
-        const dayDescription = document.createElement('div');
-        dayDescription.setAttribute('class', 'day-description');
-        dayDescription.textContent = dailyDescription;
-        day.appendChild(dayDescription);
+          // Add weather icon
+          const dayIcon = document.createElement('img');
+          dayIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + dailyIcon + '.png');
+          day.appendChild(dayIcon);
 
-        // Add daily temperature
-        const dayTemp = document.createElement('div');
-        dayTemp.setAttribute('class', 'day-temp');
-        dayTemp.textContent = dailyTemp + '°F';
-        day.appendChild(dayTemp);
+          // Add weather description
+          const dayDescription = document.createElement('div');
+          dayDescription.setAttribute('class', 'day-description');
+          dayDescription.textContent = dailyDescription;
+          day.appendChild(dayDescription);
 
-        // Add daily minimum & maximum
-        const dayMaxMin = document.createElement('div');
-        dayMaxMin.setAttribute('class', 'day-maxmin');
-        dayMaxMin.textContent = 'Max / Min: ' + dailyMax + '° / ' + dailyMin + '°';
-        day.appendChild(dayMaxMin);
+          // Add daily temperature
+          const dayTemp = document.createElement('div');
+          dayTemp.setAttribute('class', 'day-temp');
+          dayTemp.textContent = dailyTemp + '°F';
+          day.appendChild(dayTemp);
 
-        // Add daily morning temperature
-        const dayMorning = document.createElement('div');
-        dayMorning.setAttribute('class', 'day-morning');
-        dayMorning.textContent = 'Morning: ' + dailyMorning + '°';
-        day.appendChild(dayMorning);
+          // Add daily minimum & maximum
+          const dayMaxMin = document.createElement('div');
+          dayMaxMin.setAttribute('class', 'day-maxmin');
+          dayMaxMin.textContent = 'Max / Min: ' + dailyMax + '° / ' + dailyMin + '°';
+          day.appendChild(dayMaxMin);
 
-        // Add daily evening temperature
-        const dayEvening = document.createElement('div');
-        dayEvening.setAttribute('class', 'day-evening');
-        dayEvening.textContent = 'Evening: ' + dailyEvening + '°';
-        day.appendChild(dayEvening);
+          // Add daily morning temperature
+          const dayMorning = document.createElement('div');
+          dayMorning.setAttribute('class', 'day-morning');
+          dayMorning.textContent = 'Morning: ' + dailyMorning + '°';
+          day.appendChild(dayMorning);
 
-        // Add daily night temperature
-        const dayNight = document.createElement('div');
-        dayNight.setAttribute('class', 'day-night');
-        dayNight.textContent = 'Night: ' + dailyNight + '°';
-        day.appendChild(dayNight);    
+          // Add daily evening temperature
+          const dayEvening = document.createElement('div');
+          dayEvening.setAttribute('class', 'day-evening');
+          dayEvening.textContent = 'Evening: ' + dailyEvening + '°';
+          day.appendChild(dayEvening);
+
+          // Add daily night temperature
+          const dayNight = document.createElement('div');
+          dayNight.setAttribute('class', 'day-night');
+          dayNight.textContent = 'Night: ' + dailyNight + '°';
+          day.appendChild(dayNight);    
+        }
       }
     }
   }
