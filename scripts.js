@@ -65,9 +65,9 @@ function havePosition(position) {
         // Add date
         const dayDate = document.createElement('div');
         dayDate.setAttribute('class', 'day-date');
-        day.textContent = unixConverter(dailyDay);
-        day.appendChild('dayDate');
-        
+        dayDate.textContent = unixConverter(dailyDay);
+        day.appendChild(dayDate);
+
         // Add weather icon
         const dayIcon = document.createElement('img');
         dayIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + dailyIcon + '.png');
