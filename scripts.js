@@ -25,7 +25,7 @@ function havePosition(position) {
     // Get container and append data for current temperature
     var temperature = data.current.temp;
     const tempContainer = document.getElementById('current-temp');
-    tempContainer.textContent = temperature; // no child containers needed for current temp
+    tempContainer.textContent = 'The current temperature at your location is: ' + temperature + '°F'; // no child containers needed for current temp
     
     /**
      * Create and append data for 5 day forecast
@@ -36,7 +36,6 @@ function havePosition(position) {
 
     // Make daily data easier to access
     var daily = data.daily
-    console.log(daily);
 
     // Loop through response
     for (var i = 0; i < 6; i++) {
