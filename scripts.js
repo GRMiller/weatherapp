@@ -59,7 +59,7 @@ function havePosition(position) {
         // Create container for each day with that day's date
         const day = document.createElement('div');
         day.setAttribute('class', 'day');
-        day.textContent = dailyDay;
+        day.textContent = unixConverter(dailyDay);
         forecastContainer.appendChild(day);
 
         // Add weather icon
@@ -110,4 +110,14 @@ function havePosition(position) {
   request.send()
 }
 
+// Unix to date helper
+function unixConverter(ts) {
+  var dateObj = new Date(ts * 1000);
+
+  var month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
+
+  var date = ("0" + dateObj.getDate()).slice(-2);
+
+  return month + "/" + date;
+}
 
