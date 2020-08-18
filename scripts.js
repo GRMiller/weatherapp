@@ -25,9 +25,9 @@ function havePosition(position) {
     // Get container and append data for current temperature
 
     if (document.getElementById('current-temp') != undefined) {
-    var temperature = data.current.temp;
-    const tempContainer = document.getElementById('current-temp');
-    tempContainer.textContent = 'The current temperature at your location is: ' + temperature + '°F'; // no child containers needed for current temp
+      var temperature = data.current.temp;
+      const tempContainer = document.getElementById('current-temp');
+      tempContainer.textContent = 'The current temperature at your location is: ' + temperature + '°F'; // no child containers needed for current temp
     }
     /**
      * Create and append data for 5 day forecast
@@ -60,9 +60,14 @@ function havePosition(position) {
         // Create container for each day with that day's date
         const day = document.createElement('div');
         day.setAttribute('class', 'day');
-        day.textContent = unixConverter(dailyDay);
         forecastContainer.appendChild(day);
-
+        
+        // Add date
+        const dayDate = document.createElement('div');
+        dayDate.setAttribute('class', 'day-date');
+        day.textContent = unixConverter(dailyDay);
+        day.appendChild('dayDate');
+        
         // Add weather icon
         const dayIcon = document.createElement('img');
         dayIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + dailyIcon + '.png');
