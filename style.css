@@ -8,5 +8,16 @@ header {
 
 main {
   margin: 0 auto;
+  max-width: 80%;
   max-width: 80vw;
+}
+
+#forecast {
+  display: flex;
+}
+
+.day {
+  border: 1px solid black;
+  margin: 0 10px;
+  width: 100px; 
 }
