@@ -23,10 +23,12 @@ function havePosition(position) {
     var data = JSON.parse(this.response);
   
     // Get container and append data for current temperature
+
+    if (document.getElementById('current-temp') != undefined) {
     var temperature = data.current.temp;
     const tempContainer = document.getElementById('current-temp');
     tempContainer.textContent = 'The current temperature at your location is: ' + temperature + '°F'; // no child containers needed for current temp
-    
+    }
     /**
      * Create and append data for 5 day forecast
      *  */ 
